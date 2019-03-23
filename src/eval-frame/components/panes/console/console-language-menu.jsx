@@ -118,7 +118,8 @@ ConsoleLanguageMenuUnconnected.propTypes = {
       languageId: PropTypes.string.isRequired
     })
   ).isRequired,
-  currentLanguage: PropTypes.string.isRequired
+  currentLanguage: PropTypes.string.isRequired,
+  consoleIsEmpty: PropTypes.bool.isRequired
 };
 
 export function mapStateToProps(state) {

@@ -30,7 +30,8 @@ describe("ConsolePaneUnconnected React component", () => {
           lastRan: 1533078293981,
           content: "var a = 3"
         }
-      ]
+      ],
+      showStartupPane: false
     };
     mountedPane = undefined;
   });
@@ -42,6 +43,7 @@ describe("ConsolePaneUnconnected React component", () => {
 
   it("always renders one OnboardingContent inside history-items when history is empty", () => {
     props.history = [];
+    props.showStartupPane = true;
     expect(consolePane().find(OnboardingContent)).toHaveLength(1);
   });
 

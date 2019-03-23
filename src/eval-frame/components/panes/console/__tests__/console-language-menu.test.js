@@ -11,7 +11,8 @@ describe("ConsoleLanguageMenu mapStateToProps", () => {
       loadedLanguages: {
         jl: { languageId: "jl", displayName: "Julia" }
       },
-      languageLastUsed: "js"
+      languageLastUsed: "js",
+      history: [1, 2, 3, 4, 5]
     };
   });
   it("loads state.currentLanguage as expected", () => {
