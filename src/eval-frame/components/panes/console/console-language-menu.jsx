@@ -67,7 +67,8 @@ const onMenuClick = (fcn, languageId) => () => {
 
 const ConsoleLanguageMenuUnconnected = ({
   availableLanguages,
-  currentLanguage
+  currentLanguage,
+  consoleIsEmpty
 }) => {
   return (
     <React.Fragment>
@@ -99,7 +100,7 @@ const ConsoleLanguageMenuUnconnected = ({
           <MenuDivider />
           <MenuItem
             onClick={onMenuClick(() => {
-              sendActionToEditor(clearConsoleHistory());
+              if (!consoleIsEmpty) sendActionToEditor(clearConsoleHistory());
             })}
           >
             Clear Console
@@ -126,7 +127,8 @@ export function mapStateToProps(state) {
   );
   return {
     currentLanguage: state.languageLastUsed,
-    availableLanguages
+    availableLanguages,
+    consoleIsEmpty: state.history.length === 0
   };
 }
 
