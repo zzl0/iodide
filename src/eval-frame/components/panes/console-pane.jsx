@@ -51,7 +51,7 @@ export class ConsolePaneUnconnected extends React.Component {
           key={`history-${historyItem.lastRan}-${historyItem.historyId}`}
         />
       ));
-    } else {
+    } else if (this.props.showStartupPane) {
       histContents.push(
         <EmptyPaneContents key="onboarding">
           <OnboardingContent fainter>
@@ -60,6 +60,10 @@ export class ConsolePaneUnconnected extends React.Component {
           </OnboardingContent>
         </EmptyPaneContents>
       );
+    } else {
+      // this prevents flickering between the two quick action
+      // updates - hide all items, then print one.
+      histContents.push(<React.Fragment />);
     }
 
     return (
@@ -100,7 +104,8 @@ export class ConsolePaneUnconnected extends React.Component {
 
 export function mapStateToProps(state) {
   return {
-    history: state.history,
+    history: state.history.filter(hist => hist.visible),
+    showStartupPane: state.history.length === 0,
     paneVisible: state.panePositions.ConsolePositioner.display === "block"
   };
 }

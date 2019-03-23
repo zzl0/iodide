@@ -55,6 +55,17 @@ export function setConsoleLanguage(language) {
   };
 }
 
+export function clearConsoleHistory() {
+  sendActionToEditor({ type: "HIDE_ALL_CONSOLE_ITEMS" });
+  sendActionToEditor(
+    addToConsoleHistory({
+      historyType: "CONSOLE_MESSAGE",
+      level: "LOG",
+      content: "console cleared."
+    })
+  );
+}
+
 export function updateUserVariables() {
   return {
     type: "UPDATE_USER_VARIABLES",

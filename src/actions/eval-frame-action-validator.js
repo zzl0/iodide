@@ -57,6 +57,7 @@ const schemas = {
   // },
   // ENVIRONMENT_UPDATE_FROM_EVAL_FRAME: {
   // },
+  HIDE_ALL_CONSOLE_ITEMS: {},
   RESET_HISTORY_CURSOR: {
     type: "object",
     additionalProperties: false,

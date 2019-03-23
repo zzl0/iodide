@@ -4,5 +4,6 @@ export default function createHistoryItem(args) {
   const newArgs = Object.assign({}, args);
   newArgs.historyId = newArgs.historyId || generateRandomId();
   newArgs.lastRan = newArgs.lastRan || +new Date();
+  newArgs.visible = true;
   return newArgs;
 }

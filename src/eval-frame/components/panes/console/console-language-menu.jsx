@@ -7,10 +7,14 @@ import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import Popover from "../../../../shared/components/popover";
 import Menu from "../../../../shared/components/menu";
 import MenuItem from "../../../../shared/components/menu-item";
+import MenuDivider from "../../../../shared/components/menu-divider";
 import { TextButton } from "../../../../shared/components/buttons";
 import BaseIcon from "./base-icon";
 
-import { setConsoleLanguage } from "../../../actions/actions";
+import {
+  setConsoleLanguage,
+  clearConsoleHistory
+} from "../../../actions/actions";
 import { sendActionToEditor } from "../../../actions/editor-message-senders";
 
 const ArrowDropUp = styled(BaseIcon(ArrowDropUpIcon))`
@@ -57,7 +61,7 @@ const LanguageName = styled("div")`
   padding-right: 6px;
 `;
 
-const onMenuClickCreator = (fcn, languageId) => () => {
+const onMenuClick = (fcn, languageId) => () => {
   fcn(languageId);
 };
 
@@ -82,7 +86,7 @@ const ConsoleLanguageMenuUnconnected = ({
           {availableLanguages.map(language => (
             <MenuItem
               key={language.languageId}
-              onClick={onMenuClickCreator(
+              onClick={onMenuClick(
                 languageId =>
                   sendActionToEditor(setConsoleLanguage(languageId)),
                 language.languageId
@@ -92,6 +96,14 @@ const ConsoleLanguageMenuUnconnected = ({
               <LanguageShort>{language.languageId}</LanguageShort>
             </MenuItem>
           ))}
+          <MenuDivider />
+          <MenuItem
+            onClick={onMenuClick(() => {
+              sendActionToEditor(clearConsoleHistory());
+            })}
+          >
+            Clear Console
+          </MenuItem>
         </Menu>
       </Popover>
     </React.Fragment>

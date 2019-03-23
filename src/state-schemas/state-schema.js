@@ -19,6 +19,7 @@ export const historySchema = {
     cellId: { type: ["integer", "null"] },
     content: { type: "string" },
     historyId: { type: "string" },
+    visible: { type: "boolean", default: true },
     historyType: {
       type: "string",
       enum: [

@@ -29,6 +29,15 @@ export default function evalFrameActionReducer(state, action) {
       return Object.assign({}, state, { history });
     }
 
+    case "HIDE_ALL_CONSOLE_ITEMS": {
+      const history = state.history.map(hist => {
+        const newHist = Object.assign({}, hist);
+        newHist.visible = false;
+        return newHist;
+      });
+      return Object.assign({}, state, { history });
+    }
+
     case "UPDATE_CONSOLE_TEXT": {
       return Object.assign({}, state, { consoleText: action.consoleText });
     }

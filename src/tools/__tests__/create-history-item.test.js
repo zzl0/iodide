@@ -8,7 +8,7 @@ describe("createHistoryItem", () => {
     });
     expect(typeof h.historyId).toBe("string");
     expect(typeof h.lastRan).toBe("number");
-    expect(Object.keys(h).length).toBe(4);
+    expect(Object.keys(h).length).toBe(5);
   });
   it("creates a new history item but maintains the passed-in historyId and lastRan", () => {
     const historyId = "a9vndos8";
@@ -21,6 +21,6 @@ describe("createHistoryItem", () => {
     });
     expect(h.historyId).toBe(historyId);
     expect(h.lastRan).toEqual(lastRan);
-    expect(Object.keys(h).length).toBe(4);
+    expect(Object.keys(h).length).toBe(5);
   });
 });
