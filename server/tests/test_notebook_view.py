@@ -1,4 +1,5 @@
 import random
+import urllib.parse
 
 import pytest
 from django.urls import reverse
@@ -135,3 +136,13 @@ def test_notebook_revisions_page(fake_user, test_notebook, client):
         ],
         "userInfo": {},
     }
+
+
+@pytest.mark.parametrize("base_path", ["/notebooks/1/", None])
+def test_eval_frame_view(settings, client, base_path):
+    uri = reverse("eval-frame-view")
+    if base_path:
+        uri += f"?base_path={base_path}"
+    resp = client.get(uri)
+    expected_base_href = urllib.parse.urljoin(settings.SITE_URL, base_path if base_path else "/")
+    assert f'<base href="{expected_base_href}" ' in str(resp.content)

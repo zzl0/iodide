@@ -9,7 +9,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 from ..base.models import User
 from ..files.models import File
-from ..settings import APP_VERSION_STRING, EVAL_FRAME_ORIGIN
+from ..settings import EVAL_FRAME_ORIGIN, SITE_URL
 from ..views import get_user_info_dict
 from .models import Notebook, NotebookRevision
 from .names import get_random_compound
@@ -21,10 +21,16 @@ def _get_user_info_json(user):
     return {}
 
 
-def _get_iframe_src():
-    return urllib.parse.urljoin(
-        EVAL_FRAME_ORIGIN, "iodide.eval-frame.{}.html".format(APP_VERSION_STRING)
+def eval_frame_view(request):
+    return render(
+        request,
+        "notebook_eval_frame.html",
+        {"base_href": urllib.parse.urljoin(SITE_URL, request.GET.get("base_path", "/"))},
     )
+
+
+def _get_iframe_src(base):
+    return urllib.parse.urljoin(EVAL_FRAME_ORIGIN, reverse(eval_frame_view) + f"?base_path={base}")
 
 
 @ensure_csrf_cookie
@@ -67,7 +73,7 @@ def notebook_view(request, pk):
             "user_info": _get_user_info_json(request.user),
             "notebook_info": notebook_info,
             "jsmd": revision.content,
-            "iframe_src": _get_iframe_src(),
+            "iframe_src": _get_iframe_src(request.path),
         },
     )
 
@@ -164,6 +170,6 @@ def tryit_view(request):
                 "title": "Untitled notebook",
             },
             "jsmd": new_notebook_content_template.render(),
-            "iframe_src": _get_iframe_src(),
+            "iframe_src": _get_iframe_src(request.path),
         },
     )
