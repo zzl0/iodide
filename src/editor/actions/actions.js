@@ -140,13 +140,6 @@ export function toggleWrapInEditors() {
   return { type: "TOGGLE_WRAP_IN_EDITORS" };
 }
 
-export function exportNotebook(exportAsReport = false) {
-  return {
-    type: "EXPORT_NOTEBOOK",
-    exportAsReport
-  };
-}
-
 export function saveNotebook() {
   return {
     type: "SAVE_NOTEBOOK"
