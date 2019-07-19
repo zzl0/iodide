@@ -1,5 +1,3 @@
-/* global IODIDE_EVAL_FRAME_ORIGIN */
-
 /* the code in this file initialize a few DOM elements for the react
 elements to mount
 */
